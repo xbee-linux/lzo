@@ -1,0 +1,24 @@
+schema-version: 1.0
+
+type: builder
+
+
+const:
+  srcDir: /usr/src
+  exportDir: /opt/lzo
+
+
+provision:
+  - url:
+      from: http://www.oberhumer.com/opensource/lzo/download/lzo-{% version %}.tar.gz
+      todir: "{% srcDir %}"
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix={% exportDir %}/usr
+        - make
+        - make install
+      directory: "{% srcDir %}/lzo-{% version %}"
+  - export: "{% exportDir %}"
+

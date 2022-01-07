@@ -1,0 +1,14 @@
+schema-version: 1.0
+
+description: |
+
+builder: ./lzo-builder
+
+var:
+  version: "2.10"
+
+
+provision:
+  - copy:
+      builder: lzo
+      todir: /
