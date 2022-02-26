@@ -1,14 +1,24 @@
 schema-version: 1.0
 
+type: builder
+
 description: |
 
-builder: ./lzo-builder
-
-var:
+in:
   version: "2.10"
 
 
 provision:
-  - copy:
-      builder: lzo
-      todir: /
+  - url:
+      from: http://www.oberhumer.com/opensource/lzo/download/lzo-{% version %}.tar.gz
+      todir: "{% xbeeSrc %}"
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix={% xbeeOut %}/usr
+        - make
+        - make install
+      directory: "{% xbeeSrc %}/lzo-{% version %}"
+
+
